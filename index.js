@@ -5,13 +5,22 @@ const greenColors = ["#cff09e", "#a8dba8", "#79bd9a", "#3b8686"];
 
 const containerElement = document.getElementById("container");
 
-const addContentBox = colorArray => {
-  const loopAmount = Math.floor(Math.random() * 100) + 25;
+const randomIntFromInterval = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+const MIN_AMOUNT = 75;
+const MAX_AMOUNT = 150;
+
+const addContentBox = (colorArray) => {
+  const loopAmount = Math.floor(Math.random() * MAX_AMOUNT) + MIN_AMOUNT;
   const contentElement = document.createElement("div");
   contentElement.classList.add("content");
   for (let i = 0; i < loopAmount; i++) {
     const box = document.createElement("div");
     box.classList.add("box");
+    box.style.zIndex = i;
+    box.id = `box-${i}`;
     const colorRand = Math.random();
     if (colorRand < 0.25) {
       box.style.backgroundColor = colorArray[0];
@@ -26,19 +35,19 @@ const addContentBox = colorArray => {
     let randWidth = 0;
     let randHeight = 0;
     if (i % 2 === 0) {
-      randWidth = Math.floor(Math.random() * 150) + 100;
-      randHeight = Math.floor(Math.random() * 150) + 100;
+      randWidth = Math.floor(Math.random() * 120) + 50;
+      randHeight = Math.floor(Math.random() * 120) + 50;
     } else {
-      randWidth = Math.floor(Math.random() * 20) + 5;
-      randHeight = Math.floor(Math.random() * 300) + 100;
+      randWidth = Math.floor(Math.random() * 30) + 10;
+      randHeight = Math.floor(Math.random() * 200) + 50;
     }
-    const width = Math.floor(Math.random() * randWidth) + 1;
-    const height = Math.floor(Math.random() * randHeight) + 1;
+    const width = randWidth;
+    const height = randHeight;
     const leftPercent = Math.floor(Math.random() * 100);
     const topPercent = Math.floor(Math.random() * 100);
 
-    box.style.width = width;
-    box.style.height = height;
+    box.style.width = `${width}px`;
+    box.style.height = `${height}px`;
     box.style.left = leftPercent + "%";
     box.style.top = topPercent + "%";
 
@@ -52,3 +61,26 @@ addContentBox(blueColors);
 addContentBox(redColors);
 addContentBox(orangeColors);
 addContentBox(greenColors);
+
+const getRandomPx = () => {
+  return `${randomIntFromInterval(-100, 100)}px`;
+};
+
+const boxes = document.querySelectorAll(".box");
+
+boxes.forEach((box) => {
+  const boxID = parseInt(box.id.substr(4, box.id.length - 1));
+
+  if (boxID % 2 === 0) {
+    box.style.setProperty(
+      "animation-duration",
+      `${randomIntFromInterval(5000, 10000)}ms`
+    );
+    box.style.setProperty(
+      "animation-delay",
+      `${randomIntFromInterval(300, 5000)}ms`
+    );
+    box.style.setProperty("--boxTranslateX", getRandomPx());
+    box.style.setProperty("--boxTranslateY", getRandomPx());
+  }
+});

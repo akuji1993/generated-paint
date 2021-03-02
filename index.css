@@ -21,4 +21,22 @@ body {
   position: absolute;
   width: 200px;
   height: 200px;
+  animation-name: moveBox;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  border-radius: 5px;
+}
+
+@keyframes moveBox {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(var(--boxTranslateX), var(--boxTranslateY));
+  }
 }
