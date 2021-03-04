@@ -19,7 +19,7 @@ const addContentBox = (colorArray) => {
   for (let i = 0; i < loopAmount; i++) {
     const box = document.createElement("div");
     box.classList.add("box");
-    box.style.zIndex = i;
+    box.style.zIndex = 1;
     box.id = `box-${i}`;
     const colorRand = Math.random();
     if (colorRand < 0.25) {
@@ -35,19 +35,17 @@ const addContentBox = (colorArray) => {
     let randWidth = 0;
     let randHeight = 0;
     if (i % 2 === 0) {
-      randWidth = Math.floor(Math.random() * 120) + 50;
-      randHeight = Math.floor(Math.random() * 120) + 50;
+      randWidth = Math.floor(Math.random() * 10) + 4;
+      randHeight = Math.floor(Math.random() * 10) + 4;
     } else {
-      randWidth = Math.floor(Math.random() * 30) + 10;
-      randHeight = Math.floor(Math.random() * 200) + 50;
+      randWidth = Math.floor(Math.random() * 3) + 1;
+      randHeight = Math.floor(Math.random() * 20) + 4;
     }
-    const width = randWidth;
-    const height = randHeight;
     const leftPercent = Math.floor(Math.random() * 100);
     const topPercent = Math.floor(Math.random() * 100);
 
-    box.style.width = `${width}px`;
-    box.style.height = `${height}px`;
+    box.style.width = `${randWidth}vw`;
+    box.style.height = `${randHeight}vh`;
     box.style.left = leftPercent + "%";
     box.style.top = topPercent + "%";
 
